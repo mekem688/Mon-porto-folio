@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Portfolio - Ghost Yegeur</title>
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 text-gray-800">
+
+  <!-- Header -->
+  <header class="bg-white shadow">
+    <div class="container mx-auto px-6 py-6 flex justify-between items-center">
+      <h1 class="text-2xl font-bold">Ghost Yegeur</h1>
+      <nav>
+        <a href="#projets" class="text-gray-700 hover:text-blue-600 mx-2">Projets</a>
+        <a href="#competences" class="text-gray-700 hover:text-blue-600 mx-2">Compétences</a>
+        <a href="#about" class="text-gray-700 hover:text-blue-600 mx-2">À propos</a>
+        <a href="#contact" class="text-gray-700 hover:text-blue-600 mx-2">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="bg-blue-600 text-white py-20 text-center">
+    <h2 class="text-4xl font-bold mb-4">Développeur Full Stack & Passionné</h2>
+    <p class="text-lg mb-6">Je crée des applications performantes avec Rust, Go, Python, Flutter et Docker.</p>
+    <a href="#competences" class="bg-white text-blue-600 px-6 py-3 rounded font-semibold hover:bg-gray-200 transition">Voir mes compétences</a>
+  </section>
+
+  <!-- Compétences Section -->
+  <section id="competences" class="container mx-auto px-6 py-20">
+    <h2 class="text-3xl font-bold text-center mb-12">Mes Compétences</h2>
+    <div class="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-8 text-center">
+
+      <div class="bg-white rounded shadow p-6 hover:shadow-lg transition">
+        <h3 class="text-xl font-semibold mb-2">Rust</h3>
+        <p class="text-gray-600">Développement backend performant et sécurisé</p>
+      </div>
+
+      <div class="bg-white rounded shadow p-6 hover:shadow-lg transition">
+        <h3 class="text-xl font-semibold mb-2">Go</h3>
+        <p class="text-gray-600">Applications cloud et microservices rapides</p>
+      </div>
+
+      <div class="bg-white rounded shadow p-6 hover:shadow-lg transition">
+        <h3 class="text-xl font-semibold mb-2">Docker</h3>
+        <p class="text-gray-600">Containerisation et déploiement d’applications</p>
+      </div>
+
+      <div class="bg-white rounded shadow p-6 hover:shadow-lg transition">
+        <h3 class="text-xl font-semibold mb-2">Python</h3>
+        <p class="text-gray-600">Scripts, automatisation et data science</p>
+      </div>
+
+      <div class="bg-white rounded shadow p-6 hover:shadow-lg transition">
+        <h3 class="text-xl font-semibold mb-2">Flutter</h3>
+        <p class="text-gray-600">Applications mobiles multiplateformes</p>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Projets Section -->
+  <section id="projets" class="container mx-auto px-6 py-20">
+    <h2 class="text-3xl font-bold text-center mb-12">Mes Projets</h2>
+    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+
+      <div class="bg-white rounded shadow hover:shadow-lg transition p-6">
+        <h3 class="text-xl font-semibold mb-2">Projet Rust Lifetime</h3>
+        <p class="mb-4">Backend sécurisé en Rust avec cryptographie et gestion des fichiers.</p>
+        <a href="https://github.com/mekem688/lifetime_rust" target="_blank" class="text-blue-600 hover:underline">Voir sur GitHub</a>
+      </div>
+
+      <div class="bg-white rounded shadow hover:shadow-lg transition p-6">
+        <h3 class="text-xl font-semibold mb-2">Portfolio Web</h3>
+        <p class="mb-4">Portfolio responsive en Tailwind CSS, hébergé sur GitHub Pages.</p>
+        <a href="https://github.com/mekem688/mon-portfolio" target="_blank" class="text-blue-600 hover:underline">Voir sur GitHub</a>
+      </div>
+
+      <div class="bg-white rounded shadow hover:shadow-lg transition p-6">
+        <h3 class="text-xl font-semibold mb-2">App Flutter</h3>
+        <p class="mb-4">Application mobile cross-platform avec Flutter et Firebase.</p>
+        <a href="#" class="text-blue-600 hover:underline">Voir sur GitHub</a>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- About Section -->
+  <section id="about" class="bg-gray-200 py-20">
+    <div class="container mx-auto px-6 text-center">
+      <h2 class="text-3xl font-bold mb-6">À propos de moi</h2>
+      <p class="max-w-2xl mx-auto mb-4">Je suis Ghost Yegeur, développeur passionné par Rust, Go, Python, Flutter et Docker. Je construis des applications robustes, performantes et maintenables tout en suivant les bonnes pratiques de versionnage avec Git et GitHub.</p>
+    </div>
+  </section>
+
+  <!-- Contact Section -->
+  <section id="contact" class="container mx-auto px-6 py-20 text-center">
+    <h2 class="text-3xl font-bold mb-6">Contact</h2>
+    <p class="mb-4">Vous pouvez me contacter via GitHub, email ou WhatsApp :</p>
+    
+    <p class="mb-2">
+      <a href="https://github.com/mekem688" target="_blank" class="text-blue-600 hover:underline">Mon GitHub</a>
+    </p>
+    
+    <p class="mb-2">
+      Email : <a href="mailto:mekemdilan@gmail.com" class="text-blue-600 hover:underline">mekemdilan@gmail.com</a>
+    </p>
+    
+    <p class="mb-2">
+      WhatsApp : <a href="https://wa.me/237688683918" target="_blank" class="text-blue-600 hover:underline">+237 688 683 918</a>
+    </p>
+  </section>
+
+  <!-- Footer -->
+  <footer class="bg-white shadow py-6 text-center">
+    <p class="text-gray-600">&copy; 2026 Ghost Yegeur</p>
+  </footer>
+
+</body>
+</html>
