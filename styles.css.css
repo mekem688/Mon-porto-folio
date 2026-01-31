@@ -1,0 +1,33 @@
+/* Skills grid */
+.skills-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(140px,1fr));
+  gap:1rem;
+  align-items:center;
+  margin-top:1rem;
+}
+.skill{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  text-align:center;
+  padding:0.75rem;
+  border-radius:8px;
+  background: #fff;
+  border:1px solid #eef2f7;
+}
+.skill-icon{
+  width:64px;
+  height:64px;
+  object-fit:contain;
+  margin-bottom:0.5rem;
+}
+.skill-name{
+  font-weight:600;
+  font-size:0.95rem;
+  color:var(--dark);
+}
+@media(max-width:600px){
+  .skill-icon{width:52px;height:52px;}
+  .skill{padding:0.6rem;}
+}

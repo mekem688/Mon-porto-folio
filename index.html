@@ -1,123 +1,478 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="fr">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Portfolio - MEKEM DILANE</title>
-  <!-- Tailwind CSS CDN -->
-  <script src="https://cdn.tailwindcss.com"></script>
-</head>
-<body class="bg-gray-100 text-gray-800">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Mekem Sonfouo Dilane — Déploiement cloud & microservices (V5)</title>
+  <meta name="description" content="Mekem Sonfouo Dilane — en formation DevOps & backend. Déploiement cloud sécurisé, Docker, Kubernetes, Terraform, Rust (Axum), Go, PostgreSQL, Prometheus/Grafana.">
+  <meta property="og:title" content="Mekem Sonfouo Dilane — DevOps & Backend">
+  <meta property="og:description" content="En formation : déploiement sécurisé de services cloud, microservices Rust/Go, monitoring, IaC.">
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="og-image.png">
+  <meta name="version" content="V5">
 
-  <!-- Header -->
-  <header class="bg-white shadow">
-    <div class="container mx-auto px-6 py-6 flex justify-between items-center">
-      <h1 class="text-2xl font-bold">MEKEM DILANE </h1>
-      <nav>
-        <a href="#projets" class="text-gray-700 hover:text-blue-600 mx-2">Projets</a>
-        <a href="#competences" class="text-gray-700 hover:text-blue-600 mx-2">Compétences</a>
-        <a href="#about" class="text-gray-700 hover:text-blue-600 mx-2">À propos</a>
-        <a href="#contact" class="text-gray-700 hover:text-blue-600 mx-2">Contact</a>
-      </nav>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+  <!-- Embedded CSS - responsive & compact (PC + smartphone) -->
+  <style>
+  :root{
+    --bg:#0f1724;
+    --card:#0b1220;
+    --muted:#94a3b8;
+    --accent:#22c1c3;
+    --accent-2:#6a9cff;
+    --container:1100px;
+    --radius:12px;
+    --gap:1rem;
+    font-family:'Inter',system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial;
+    color:#e6eef6;
+    background:linear-gradient(180deg,#061025 0%, #071226 60%);
+    -webkit-font-smoothing:antialiased;
+    -moz-osx-font-smoothing:grayscale;
+  }
+
+  html,body{height:100%;margin:0;}
+  .container{max-width:var(--container);margin:0 auto;padding:0 1rem;}
+  a{color:var(--accent);text-decoration:none;}
+  a:hover{text-decoration:underline;}
+
+/* ---------- Header & Nav ---------- */
+  .site-header{position:sticky;top:0;z-index:60;background:linear-gradient(180deg, rgba(6,16,37,0.78), rgba(6,16,37,0.55));backdrop-filter: blur(6px);border-bottom:1px solid rgba(255,255,255,0.04);}
+  .header-inner{display:flex;align-items:center;justify-content:space-between;gap:1rem;padding:.7rem 0;}
+  .brand{font-weight:700;color:#fff;font-size:1.05rem;letter-spacing:0.2px;display:inline-block;}
+  .nav-right{display:flex;align-items:center;gap:.6rem;}
+  .main-nav{display:flex;gap:.8rem;align-items:center;}
+  .main-nav a{color:var(--muted);font-weight:600;padding:.45rem .6rem;border-radius:8px;}
+  .main-nav a:hover{color:#fff;background:rgba(255,255,255,0.02);}
+  .cta{padding:.35rem .6rem;border-radius:8px;background:linear-gradient(90deg,var(--accent),var(--accent-2));color:#021022;font-weight:700;border:none;}
+
+/* mobile nav toggle */
+  .nav-toggle{display:none;background:transparent;border:1px solid rgba(255,255,255,0.06);color:var(--muted);padding:.45rem;border-radius:8px;}
+  .nav-toggle:focus{outline:2px solid rgba(34,193,195,0.25);}
+
+/* ---------- Hero ---------- */
+  .hero{padding:2.6rem 0;}
+  .hero-inner{display:flex;gap:1.6rem;align-items:center;justify-content:space-between;flex-wrap:wrap;}
+  .hero h1{color:#fff;margin:0;font-size:clamp(1.4rem,3vw,2.4rem);line-height:1.02;}
+  .hero p{color:var(--muted);max-width:60ch;margin-top:.6rem;}
+  .hero-visual img{max-width:320px;width:100%;filter:drop-shadow(0 20px 40px rgba(0,0,0,0.6));border-radius:10px;}
+
+/* ---------- Sections ---------- */
+  .section{padding:1.6rem 0;}
+  h2{color:#fff;margin-bottom:.8rem;font-size:1.15rem;}
+
+/* ---------- Skills ---------- */
+  .skills-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:.75rem;margin-top:.75rem;}
+  .skill{display:flex;flex-direction:column;align-items:center;text-align:center;padding:.6rem;border-radius:10px;background:var(--card);border:1px solid rgba(255,255,255,0.03);transition:transform .16s ease,box-shadow .16s ease;}
+  .skill:hover{transform:translateY(-6px);box-shadow:0 12px 30px rgba(0,0,0,0.45);}
+  .skill-icon{width:48px;height:48px;object-fit:contain;margin-bottom:.4rem;}
+  .skill-name{font-weight:600;color:#eaf3fb;font-size:.9rem;}
+
+/* ---------- Profile card ---------- */
+  .profile-card{display:flex;gap:1rem;align-items:center;flex-wrap:wrap;background:linear-gradient(180deg, rgba(255,255,255,0.02), transparent);padding:.9rem;border-radius:12px;border:1px solid rgba(255,255,255,0.03);box-shadow:0 10px 30px rgba(2,6,23,0.45);}
+  .profile-photo{flex:0 0 auto;width:160px;height:160px;border-radius:10px;overflow:hidden;border:1px solid rgba(255,255,255,0.04);background:linear-gradient(180deg, rgba(255,255,255,0.02), transparent);}
+  .profile-photo img{width:100%;height:100%;object-fit:cover;object-position:center;display:block;}
+  .profile-info{flex:1 1 260px;min-width:180px;}
+  .profile-info h2{margin:.1rem 0 .4rem;font-size:1.15rem;color:#fff;}
+  .profile-info .muted{color:var(--muted);margin:0.2rem 0 0.5rem;line-height:1.4;}
+
+/* ---------- Portfolio ---------- */
+  .portfolio-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:.9rem;margin-top:.8rem;}
+  .portfolio-item{border-radius:10px;overflow:hidden;border:1px solid rgba(255,255,255,0.03);transition:transform .16s ease,box-shadow .16s ease;background:linear-gradient(180deg, rgba(255,255,255,0.01), transparent);}
+  .portfolio-item:hover{transform:translateY(-6px);box-shadow:0 18px 40px rgba(0,0,0,0.5);}
+  .portfolio-item img{display:block;width:100%;height:auto;object-fit:cover;}
+  .portfolio-item figcaption{padding:.75rem;color:var(--muted);font-size:.92rem;}
+
+/* ---------- Gallery (no gaps) ---------- */
+  .project-gallery{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));margin-top:.6rem;gap:0;}
+  .project-gallery .gallery-item{border:0;padding:0;cursor:pointer;overflow:hidden;margin:0;}
+  .project-gallery .gallery-item img{display:block;width:100%;height:100%;object-fit:cover;margin:0;padding:0;border:none;}
+
+/* ---------- Modal ---------- */
+  .img-modal{position:fixed;inset:0;display:none;align-items:center;justify-content:center;background:rgba(1,4,9,0.78);z-index:999;padding:1.2rem;}
+  .img-modal[aria-hidden="false"]{display:flex;}
+  .modal-image{max-width:92vw;max-height:86vh;border-radius:8px;}
+  .modal-close{position:absolute;top:1rem;right:1rem;background:transparent;border:0;color:#fff;font-size:1.2rem;cursor:pointer;}
+
+/* ---------- Forms ---------- */
+  .form-grid{display:grid;gap:.6rem;grid-template-columns:repeat(2,1fr);}
+  .form-grid label{display:flex;flex-direction:column;}
+  .form-grid label.full{grid-column:1/-1;}
+  input, textarea{padding:.6rem;border-radius:8px;border:1px solid rgba(255,255,255,0.05);background:transparent;color:#e6eef6;width:100%;box-sizing:border-box;}
+  .small-muted{color:var(--muted);font-size:.9rem;}
+
+/* ---------- Footer ---------- */
+  .site-footer{padding:.9rem 0;border-top:1px solid rgba(255,255,255,0.03);background:transparent;}
+  .footer-inner{display:flex;justify-content:space-between;align-items:center;gap:.6rem;flex-wrap:wrap;}
+
+/* ---------- Buttons ---------- */
+  .btn{display:inline-block;padding:.6rem .9rem;border-radius:9px;text-decoration:none;border:0;cursor:pointer;font-weight:700;font-size:0.95rem;}
+  .btn.primary{background:linear-gradient(90deg,var(--accent),var(--accent-2));color:#021022;}
+  .btn.ghost{background:transparent;border-radius:9px;border:1px solid rgba(255,255,255,0.04);color:var(--accent);}
+
+/* ---------- Small privacy badge ---------- */
+  .privacy-badge{display:inline-block;padding:.2rem .5rem;border-radius:8px;background:rgba(255,255,255,0.03);color:var(--muted);font-size:.82rem;margin-left:.6rem;border:1px solid rgba(255,255,255,0.02);}
+
+/* ---------- Responsiveness ---------- */
+  @media (max-width:900px){
+    .header-inner{padding:.5rem 0;}
+    .hero-inner{flex-direction:column-reverse;align-items:flex-start;}
+    .profile-photo{width:140px;height:140px;}
+    .nav-toggle{display:inline-block;}
+    .main-nav{position:fixed;top:64px;right:12px;background:rgba(6,12,24,0.95);border-radius:12px;padding:.6rem;flex-direction:column;display:none;min-width:180px;box-shadow:0 10px 40px rgba(0,0,0,0.6);}
+    .main-nav.open{display:flex;}
+    .main-nav a{display:block;padding:.6rem .8rem;margin:0;}
+  }
+
+  @media (max-width:600px){
+    .profile-card{padding:.6rem;}
+    .profile-photo{width:120px;height:120px;}
+    .hero-visual img{max-width:100%;height:auto;}
+    .form-grid{grid-template-columns:1fr;}
+    .btn{width:100%;text-align:center;padding:.8rem;display:block;}
+  }
+
+  /* Accessibility focus */
+  a:focus, button:focus, input:focus, textarea:focus{outline:3px solid rgba(34,193,195,0.14);outline-offset:2px;border-radius:6px;}
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <div class="container header-inner">
+      <div style="display:flex;align-items:center;gap:.6rem;">
+        <a class="brand" href="#hero">Mekem Sonfouo Dilane</a>
+        <a class="privacy-badge" href="privacy.html" title="Politique de confidentialité — V5">Politique (V5)</a>
+      </div>
+
+      <div class="nav-right">
+        <button class="nav-toggle" id="navToggle" aria-expanded="false" aria-controls="mainNav">☰</button>
+        <nav id="mainNav" class="main-nav" aria-label="Navigation principale">
+          <a href="#services">Compétences</a>
+          <a href="#portfolio">Portfolio</a>
+          <a href="#profile">Profil</a>
+          <a href="#contact">Contact</a>
+          <a href="privacy.html" class="cta" style="margin-left:.4rem;background:transparent;border:1px solid rgba(255,255,255,0.04);color:var(--muted);">Politique (V5)</a>
+        </nav>
+      </div>
     </div>
   </header>
 
-  <!-- Hero Section -->
-  <section class="bg-blue-600 text-white py-20 text-center">
-    <h2 class="text-4xl font-bold mb-4">Développeur Full Stack & Passionné</h2>
-    <p class="text-lg mb-6">Je crée des applications performantes avec Rust, Go, Python, Flutter et Docker.</p>
-    <a href="#competences" class="bg-white text-blue-600 px-6 py-3 rounded font-semibold hover:bg-gray-200 transition">Voir mes compétences</a>
-  </section>
+  <main>
+    <!-- HERO -->
+    <section id="hero" class="hero">
+      <div class="container hero-inner">
+        <div>
+          <h1>Mekem Sonfouo Dilane — DevOps & Backend (en formation)</h1>
+          <p>Je déploie des services sécurisés dans le cloud et développe des microservices performants en Rust et Go. J'utilise Docker, Kubernetes, Ansible, Terraform, PostgreSQL, Prometheus & Grafana. J'automatise avec Python et Bash et j'apprends chaque jour pour progresser.</p>
+          <p style="margin-top:1rem;">
+            <a class="btn primary" href="#contact">Demander un contact</a>
+            <a class="btn ghost" href="#portfolio" style="margin-left:.6rem;">Voir mes projets</a>
+          </p>
+        </div>
+        <div class="hero-visual" aria-hidden="true">
+          <img src="hero-illustration.svg" alt="Illustration service" width="360" height="240">
+        </div>
+      </div>
+    </section>
 
-  <!-- Compétences Section -->
-  <section id="competences" class="container mx-auto px-6 py-20">
-    <h2 class="text-3xl font-bold text-center mb-12">Mes Compétences</h2>
-    <div class="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-8 text-center">
+    <!-- COMPETENCES -->
+    <section id="services" class="section">
+      <div class="container">
+        <h2>Compétences</h2>
+        <p class="muted">Technologies & outils — domaines de compétence et apprentissage continu.</p>
 
-      <div class="bg-white rounded shadow p-6 hover:shadow-lg transition">
-        <h3 class="text-xl font-semibold mb-2">Rust</h3>
-        <p class="text-gray-600">Développement backend performant et sécurisé</p>
+        <div class="skills-grid" role="list">
+          <div class="skill" role="listitem">
+            <img src="https://cdn.simpleicons.org/docker/0db7ed" alt="Docker" class="skill-icon" loading="lazy" title="Docker">
+            <div class="skill-name">Docker</div>
+          </div>
+
+          <div class="skill" role="listitem">
+            <img src="https://cdn.simpleicons.org/kubernetes/326ce5" alt="Kubernetes" class="skill-icon" loading="lazy" title="Kubernetes">
+            <div class="skill-name">Kubernetes</div>
+          </div>
+
+          <div class="skill" role="listitem">
+            <img src="https://cdn.simpleicons.org/ansible/EE0000" alt="Ansible" class="skill-icon" loading="lazy" title="Ansible">
+            <div class="skill-name">Ansible</div>
+          </div>
+
+          <div class="skill" role="listitem">
+            <img src="https://cdn.simpleicons.org/terraform/623ce4" alt="Terraform" class="skill-icon" loading="lazy" title="Terraform">
+            <div class="skill-name">Terraform</div>
+          </div>
+
+          <div class="skill" role="listitem">
+            <img src="https://cdn.simpleicons.org/rust/dea584" alt="Rust" class="skill-icon" loading="lazy" title="Rust (Axum)">
+            <div class="skill-name">Rust (Axum)</div>
+          </div>
+
+          <div class="skill" role="listitem">
+            <img src="https://cdn.simpleicons.org/go/00ADD8" alt="Go" class="skill-icon" loading="lazy" title="Go">
+            <div class="skill-name">Go</div>
+          </div>
+
+          <div class="skill" role="listitem">
+            <img src="https://cdn.simpleicons.org/postgresql/31648a" alt="PostgreSQL" class="skill-icon" loading="lazy" title="PostgreSQL">
+            <div class="skill-name">PostgreSQL</div>
+          </div>
+
+          <div class="skill" role="listitem">
+            <img src="https://cdn.simpleicons.org/prometheus/E6522C" alt="Prometheus" class="skill-icon" loading="lazy" title="Prometheus">
+            <div class="skill-name">Prometheus</div>
+          </div>
+
+          <div class="skill" role="listitem">
+            <img src="https://cdn.simpleicons.org/grafana/F46800" alt="Grafana" class="skill-icon" loading="lazy" title="Grafana">
+            <div class="skill-name">Grafana</div>
+          </div>
+
+          <div class="skill" role="listitem">
+            <img src="https://cdn.simpleicons.org/python/3776AB" alt="Python" class="skill-icon" loading="lazy" title="Python">
+            <div class="skill-name">Python</div>
+          </div>
+
+          <div class="skill" role="listitem">
+            <img src="https://cdn.simpleicons.org/gnubash/4EAA25" alt="Bash" class="skill-icon" loading="lazy" title="Bash">
+            <div class="skill-name">Bash</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PROFILE / CARTE PRO -->
+    <section id="profile" class="section">
+      <div class="container">
+        <div class="profile-card" role="region" aria-label="Profil de Mekem Sonfouo Dilane">
+          <div class="profile-photo">
+            <!-- Responsive srcset: remplace par tes fichiers optimisés -->
+             <img src="me-profile.webp" alt="Photo professionnelle de Mekem Sonfouo Dilane" width="600" height="600">
+          </div>
+          <div class="profile-info">
+            <h2>Mekem Sonfouo Dilane</h2>
+            <p class="muted">En formation DevOps & Backend — déploiement cloud sécurisé, microservices Rust/Go, PostgreSQL, monitoring (Prometheus/Grafana), IaC (Terraform/Ansible).</p>
+            <p style="margin-top:.4rem;"><a href="mailto:mekemdilan@gmail.com">mekemdilan@gmail.com</a> · <a href="https://wa.me/237688683918" target="_blank" rel="noopener">WhatsApp</a></p>
+            <p class="muted" style="margin-top:.5rem;font-size:.9rem;">Version du site : V5 — <a href="privacy.html">Politique de confidentialité (V5)</a></p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PORTFOLIO -->
+    <section id="portfolio" class="section bg-light">
+      <div class="container">
+        <h2>Portfolio</h2>
+        <p class="muted">Projets publics — prototypes et expérimentations. Certaines expérimentations sont pédagogiques — voir disclaimers.</p>
+
+        <div class="portfolio-grid" aria-live="polite">
+          <!-- injection_process-rust -->
+          <figure class="portfolio-item">
+            <a href="https://github.com/mekem688/injection_process-rust" target="_blank" rel="noopener noreferrer">
+              <img src="injection_process-rust-1-thumb.webp" alt="README — injection_process-rust" loading="lazy">
+            </a>
+            <figcaption>
+              <strong>injection_process-rust</strong> — Prototype pédagogique en Rust (WinAPI, allocation mémoire distante). Usage éducatif uniquement.
+              <br><span class="muted">Tech : Rust · WinAPI · unsafe Rust</span>
+              <br><a href="https://github.com/mekem688/injection_process-rust" target="_blank" rel="noopener">Voir le dépôt</a>
+            </figcaption>
+          </figure>
+
+          <!-- IA-MEDICALE -->
+          <figure class="portfolio-item">
+            <a href="https://github.com/mekem688/IA-MEDICALE" target="_blank" rel="noopener noreferrer">
+              <img src="IA-MEDICALE-1.webp" alt="Interface — IA-MEDICALE" loading="lazy">
+            </a>
+            <figcaption>
+              <strong>IA-MEDICALE</strong> — Prototype Data Science (Tkinter) pour estimation du risque de diabète. Ne remplace pas un avis médical.
+              <br><span class="muted">Tech : Python · scikit-learn · Tkinter · pandas</span>
+              <br><a href="https://github.com/mekem688/IA-MEDICALE" target="_blank" rel="noopener">Voir le dépôt</a>
+            </figcaption>
+          </figure>
+
+          <!-- API-GO-net-http -->
+          <figure class="portfolio-item">
+            <a href="https://github.com/mekem688/API-GO-net-http" target="_blank" rel="noopener noreferrer">
+              <img src="API-GO-net-http-1.webp" alt="Endpoints — API-GO-net-http" loading="lazy">
+            </a>
+            <figcaption>
+              <strong>API-GO-net-http</strong> — API HTTP en Go (net/http). Prototype pour apprendre la construction d'APIs REST.
+              <br><span class="muted">Tech : Go · net/http · JSON · Docker</span>
+              <br><a href="https://github.com/mekem688/API-GO-net-http" target="_blank" rel="noopener">Voir le dépôt</a>
+            </figcaption>
+          </figure>
+        </div>
+
+        <!-- compact gallery -->
+        <div class="project-gallery" aria-hidden="false" style="margin-top:.8rem;">
+          <button class="gallery-item" data-src="injection_process-rust-1.webp" aria-label="Voir capture README">
+            <img src="injection_process-rust-1-thumb.webp" alt="README — injection_process-rust" loading="lazy">
+          </button>
+          <button class="gallery-item" data-src="injection_process-rust-2.webp" aria-label="Voir extrait de code">
+            <img src="injection_process-rust-2-thumb.webp" alt="Extrait de code — injection_process-rust" loading="lazy">
+          </button>
+          <button class="gallery-item" data-src="injection_process-rust-3.webp" aria-label="Voir diagramme d'architecture">
+            <img src="injection_process-rust-3-thumb.webp" alt="Diagramme — injection_process-rust" loading="lazy">
+          </button>
+        </div>
       </div>
 
-      <div class="bg-white rounded shadow p-6 hover:shadow-lg transition">
-        <h3 class="text-xl font-semibold mb-2">Go</h3>
-        <p class="text-gray-600">Applications cloud et microservices rapides</p>
+      <div id="imgModal" class="img-modal" aria-hidden="true" role="dialog" tabindex="-1">
+        <button class="modal-close" aria-label="Fermer">✕</button>
+        <img class="modal-image" src="" alt="">
       </div>
+    </section>
 
-      <div class="bg-white rounded shadow p-6 hover:shadow-lg transition">
-        <h3 class="text-xl font-semibold mb-2">Docker</h3>
-        <p class="text-gray-600">Containerisation et déploiement d’applications</p>
+    <!-- CONTACT -->
+    <section id="contact" class="section contact-section">
+      <div class="container">
+        <h2>Contact</h2>
+        <p class="muted">Tu peux me contacter par formulaire, email ou WhatsApp :</p>
+
+        <form id="contactForm" action="https://formspree.io/f/YOUR_FORM_ID" method="POST" aria-label="Formulaire de contact">
+          <div class="form-grid">
+            <label>
+              <span>Nom</span>
+              <input type="text" name="name" required>
+            </label>
+            <label>
+              <span>Email</span>
+              <input type="email" name="email" required>
+            </label>
+            <label class="full">
+              <span>Sujet</span>
+              <input type="text" name="subject">
+            </label>
+            <label class="full">
+              <span>Message</span>
+              <textarea name="message" rows="5" required></textarea>
+            </label>
+          </div>
+          <p style="margin-top:.6rem;"><button type="submit" class="btn primary">Envoyer</button></p>
+          <p class="small-muted">En envoyant ce formulaire, vous acceptez que vos données soient utilisées pour répondre à votre demande. Voir la <a href="privacy.html">politique de confidentialité (V5)</a>.</p>
+        </form>
+
+        <div style="margin-top:.9rem;">
+          <p><strong>Contact direct :</strong></p>
+          <p>
+            Email : <a href="mailto:mekemdilan@gmail.com">mekemdilan@gmail.com</a><br>
+            WhatsApp : <a href="https://wa.me/237688683918" target="_blank" rel="noopener noreferrer">+237 688 683 918</a>
+          </p>
+          <p class="small-muted">Remarque : pour limiter le spam, privilégiez le formulaire.</p>
+        </div>
       </div>
+    </section>
+  </main>
 
-      <div class="bg-white rounded shadow p-6 hover:shadow-lg transition">
-        <h3 class="text-xl font-semibold mb-2">Python</h3>
-        <p class="text-gray-600">Scripts, automatisation et data science</p>
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <div>
+        <p>© <span id="year"></span> Mekem Sonfouo Dilane — Tous droits réservés.</p>
+        <p class="small-muted">Email : <a href="mailto:mekemdilan@gmail.com">mekemdilan@gmail.com</a> · WhatsApp : <a href="https://wa.me/237688683918" target="_blank" rel="noopener noreferrer">+237 688 683 918</a></p>
       </div>
-
-      <div class="bg-white rounded shadow p-6 hover:shadow-lg transition">
-        <h3 class="text-xl font-semibold mb-2">Flutter</h3>
-        <p class="text-gray-600">Applications mobiles multiplateformes</p>
-      </div>
-
+      <nav class="footer-nav">
+        <a href="privacy.html">Politique de confidentialité (V5)</a>
+        <a href="/mentions.html">Mentions légales</a>
+      </nav>
     </div>
-  </section>
-
-  <!-- Projets Section -->
-  <section id="projets" class="container mx-auto px-6 py-20">
-    <h2 class="text-3xl font-bold text-center mb-12">Mes Projets</h2>
-    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-
-      <div class="bg-white rounded shadow hover:shadow-lg transition p-6">
-        <h3 class="text-xl font-semibold mb-2">Projet Rust Lifetime</h3>
-        <p class="mb-4">Backend sécurisé en Rust avec cryptographie et gestion des fichiers.</p>
-        <a href="https://github.com/mekem688/lifetime_rust" target="_blank" class="text-blue-600 hover:underline">Voir sur GitHub</a>
-      </div>
-
-      <div class="bg-white rounded shadow hover:shadow-lg transition p-6">
-        <h3 class="text-xl font-semibold mb-2">Portfolio Web</h3>
-        <p class="mb-4">Portfolio responsive en Tailwind CSS, hébergé sur GitHub Pages.</p>
-        <a href="https://github.com/mekem688/mon-portfolio" target="_blank" class="text-blue-600 hover:underline">Voir sur GitHub</a>
-      </div>
-
-      <div class="bg-white rounded shadow hover:shadow-lg transition p-6">
-        <h3 class="text-xl font-semibold mb-2">App Flutter</h3>
-        <p class="mb-4">Application mobile cross-platform avec Flutter et Firebase.</p>
-        <a href="#" class="text-blue-600 hover:underline">Voir sur GitHub</a>
-      </div>
-
-    </div>
-  </section>
-
-  <!-- About Section -->
-  <section id="about" class="bg-gray-200 py-20">
-    <div class="container mx-auto px-6 text-center">
-      <h2 class="text-3xl font-bold mb-6">À propos de moi</h2>
-      <p class="max-w-2xl mx-auto mb-4">Je suis Ghost Yegeur, développeur passionné par Rust, Go, Python, Flutter et Docker. Je construis des applications robustes, performantes et maintenables tout en suivant les bonnes pratiques de versionnage avec Git et GitHub.</p>
-    </div>
-  </section>
-
-  <!-- Contact Section -->
-  <section id="contact" class="container mx-auto px-6 py-20 text-center">
-    <h2 class="text-3xl font-bold mb-6">Contact</h2>
-    <p class="mb-4">Vous pouvez me contacter via GitHub, email ou WhatsApp :</p>
-    
-    <p class="mb-2">
-      <a href="https://github.com/mekem688" target="_blank" class="text-blue-600 hover:underline">Mon GitHub</a>
-    </p>
-    
-    <p class="mb-2">
-      Email : <a href="mailto:mekemdilan@gmail.com" class="text-blue-600 hover:underline">mekemdilan@gmail.com</a>
-    </p>
-    
-    <p class="mb-2">
-      WhatsApp : <a href="https://wa.me/237688683918" target="_blank" class="text-blue-600 hover:underline">+237 688 683 918</a>
-    </p>
-  </section>
-
-  <!-- Footer -->
-  <footer class="bg-white shadow py-6 text-center">
-    <p class="text-gray-600">&copy; 2026 Ghost Yegeur</p>
   </footer>
 
+  <!-- Embedded JS - responsive behaviour -->
+  <script>
+  // Smooth scroll for internal links
+  document.querySelectorAll('a[href^="#"]').forEach(a=>{
+    a.addEventListener('click', e=>{
+      const target = document.querySelector(a.getAttribute('href'));
+      if(target){
+        e.preventDefault();
+        target.scrollIntoView({behavior:'smooth', block:'start'});
+        // close mobile nav if open
+        const nav = document.getElementById('mainNav');
+        if(nav && nav.classList.contains('open')){
+          nav.classList.remove('open');
+          document.getElementById('navToggle').setAttribute('aria-expanded','false');
+        }
+      }
+    });
+  });
+
+  // Current year
+  const yearEl = document.getElementById('year');
+  if(yearEl) yearEl.textContent = new Date().getFullYear();
+
+  // Mobile nav toggle
+  const navToggle = document.getElementById('navToggle');
+  const mainNav = document.getElementById('mainNav');
+  if(navToggle && mainNav){
+    navToggle.addEventListener('click', () => {
+      const open = mainNav.classList.toggle('open');
+      navToggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+    });
+    // close nav when clicking outside (mobile)
+    document.addEventListener('click', (e) => {
+      if(window.innerWidth <= 900 && mainNav.classList.contains('open')){
+        const isClickInside = mainNav.contains(e.target) || navToggle.contains(e.target);
+        if(!isClickInside){
+          mainNav.classList.remove('open');
+          navToggle.setAttribute('aria-expanded','false');
+        }
+      }
+    });
+  }
+
+  // Form feedback (disable submit while sending)
+  const form = document.getElementById('contactForm');
+  if(form){
+    form.addEventListener('submit', (e)=>{
+      const btn = form.querySelector('button[type="submit"]');
+      if(btn){ btn.disabled = true; btn.textContent = 'Envoi...'; }
+    });
+  }
+
+  // Gallery modal
+  document.querySelectorAll('.gallery-item').forEach(btn=>{
+    btn.addEventListener('click', ()=> {
+      const src = btn.getAttribute('data-src');
+      const modal = document.getElementById('imgModal');
+      const img = modal.querySelector('.modal-image');
+      img.src = src;
+      img.alt = btn.querySelector('img').alt || '';
+      modal.setAttribute('aria-hidden','false');
+      modal.focus();
+    });
+  });
+
+  const modalClose = document.querySelector('#imgModal .modal-close');
+  if(modalClose){
+    modalClose.addEventListener('click', ()=>{
+      const modal = document.getElementById('imgModal');
+      modal.setAttribute('aria-hidden','true');
+      modal.querySelector('.modal-image').src = '';
+    });
+  }
+  const imgModal = document.getElementById('imgModal');
+  if(imgModal){
+    imgModal.addEventListener('click', (e)=>{
+      if(e.target === e.currentTarget){
+        e.currentTarget.setAttribute('aria-hidden','true');
+        e.currentTarget.querySelector('.modal-image').src = '';
+      }
+    });
+  }
+
+  // keyboard accessibility: close modal on Esc
+  document.addEventListener('keydown', (e) => {
+    if(e.key === 'Escape'){
+      const modal = document.getElementById('imgModal');
+      if(modal && modal.getAttribute('aria-hidden') === 'false'){
+        modal.setAttribute('aria-hidden','true');
+        modal.querySelector('.modal-image').src = '';
+      }
+      if(mainNav && mainNav.classList.contains('open')){
+        mainNav.classList.remove('open');
+        navToggle.setAttribute('aria-expanded','false');
+      }
+    }
+  });
+  </script>
 </body>
 </html>
