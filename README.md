@@ -79,9 +79,7 @@ Mon objectif : concevoir des systèmes **Secure by Design**, résilients, observ
 ---
 
 ## 📫 Contact
-
-- GitHub : [Ton lien]
-- Email : [Ton email]
+whatsapp  +237 688683918 
 
 ---
 
