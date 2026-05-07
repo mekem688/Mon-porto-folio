@@ -1,5 +1,3 @@
-const BASE = import.meta.env.BASE_URL;
-
 export default function Hero() {
   return (
     <section id="hero" style={{
