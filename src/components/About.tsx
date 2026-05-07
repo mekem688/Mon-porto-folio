@@ -1,5 +1,3 @@
-const BASE = import.meta.env.BASE_URL;
-
 export default function About() {
   return (
     <section id="about" style={{ background: "rgba(17,34,64,0.3)" }}>
